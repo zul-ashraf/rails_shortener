@@ -1,0 +1,37 @@
+<div class="container">
+<div class="dialog  mt-5">
+    <div>
+      <h1>Analytics</h1>
+    </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Lookup Code</th>
+      <th scope="col">Original Url</th>
+      <th scope="col">Clicks</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @links.each do |link| %>
+   <tr>
+      <th scope="row"><%= link.id %></th>
+      <td>
+        <a href=<%= "/" + link.lookup_code %>><%= link.lookup_code %></a>
+      </td>
+      <td><%= link.original_url %></td>
+      <td><a href=<%= "/analytics/" + link.lookup_code %>>
+      <%= 
+      Rails.cache.fetch("/clicks_count/#{link.id}", :expires_in => 5.minutes) do 
+        link.clicks.count
+      end 
+      %>
+      </a></td>
+    </tr>
+  <%end %>
+  </tbody>
+</table>
+
+</div>

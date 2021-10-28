@@ -1,0 +1,5 @@
+var element = document.getElementById('short-link')
+var host_url = window.location.protocol + "//" + window.location.host + "/"
+var html = "<%= j render 'link', link: @link.lookup_code %>"
+element.innerHTML = html
+document.getElementById('host-url').innerHTML = host_url
